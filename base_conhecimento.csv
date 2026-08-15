@@ -1,0 +1,11 @@
+categoria,tema,pergunta,resposta
+Java,Variável,O que é uma variável?,Uma variável é um espaço usado para armazenar um valor durante a execução de um programa.
+Java,Classe,O que é uma classe?,Uma classe é um modelo usado para criar objetos em Java.
+Java,Objeto,O que é um objeto?,Um objeto é uma instância de uma classe.
+Spring Boot,Controller,O que é Controller?,Controller é a camada responsável por receber requisições da aplicação.
+Spring Boot,Service,O que é Service?,Service normalmente contém as regras de negócio da aplicação.
+Spring Boot,Repository,O que é Repository?,Repository é responsável pela comunicação com o banco de dados.
+API,API,O que é uma API?,API é uma forma de permitir que diferentes sistemas se comuniquem.
+Git,Git,O que é Git?,Git é uma ferramenta usada para controlar versões do código.
+Git,GitHub,O que é GitHub?,GitHub é uma plataforma utilizada para armazenar e compartilhar projetos.
+Banco de Dados,Chave estrangeira,O que é chave estrangeira?,É um campo utilizado para relacionar registros entre tabelas.
