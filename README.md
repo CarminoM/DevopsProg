@@ -12,11 +12,11 @@ O objetivo do DevopsProg é permitir que uma pessoa faça perguntas em linguagem
 
 Exemplos de perguntas:
 
-- O que é uma API?
-- O que faz um Service?
-- Qual componente fala com o banco de dados?
-- O que é uma classe?
-- Para que serve o GitHub?
+* O que é uma API?
+* O que faz um Service?
+* Qual componente fala com o banco de dados?
+* O que é uma classe?
+* Para que serve o GitHub?
 
 ---
 
@@ -38,8 +38,8 @@ Esse conteúdo é enviado para o OCI Generative AI
         ↓
 A IA gera uma resposta didática
         ↓
-A aplicação mostra a resposta e a fonte utiliza
-
+A aplicação mostra a resposta e a fonte utilizada
+```
 
 ---
 
@@ -51,7 +51,17 @@ Por exemplo, a pergunta:
 
 ```text
 Qual componente fala com o banco de dados?
+```
+
+consegue encontrar o conteúdo relacionado a:
+
+```text
 Repository
+```
+
+mesmo que a palavra `Repository` não apareça na pergunta.
+
+Isso é possível utilizando embeddings e comparação por similaridade.
 
 ---
 
@@ -61,11 +71,25 @@ A base de conhecimento está armazenada no arquivo:
 
 ```text
 base_conhecimento.csv
+```
 
+Atualmente ela possui conteúdos sobre:
+
+* Java
+* Spring Boot
+* APIs
+* Git
+* GitHub
+* Banco de dados
+
+Cada registro possui os seguintes campos:
+
+```text
 categoria
 tema
 pergunta
 resposta
+```
 
 ---
 
@@ -75,7 +99,7 @@ O projeto utiliza serviços da Oracle Cloud Infrastructure.
 
 ### OCI Generative AI
 
-Responsável por gerar respostas em linguagem natural.
+Responsável por gerar respostas em linguagem natural a partir da pergunta do usuário e do conteúdo encontrado na base de conhecimento.
 
 ### OCI Embeddings
 
@@ -85,22 +109,25 @@ Modelo de embedding utilizado:
 
 ```text
 cohere.embed-v4.0
+```
+
+A busca utiliza similaridade de cosseno para encontrar o conteúdo semanticamente mais próximo da pergunta do usuário.
 
 ---
 
 ## Tecnologias utilizadas
 
-- Python
-- Streamlit
-- Pandas
-- NumPy
-- Oracle Cloud Infrastructure (OCI)
-- OCI Generative AI
-- OCI Embeddings
-- Cohere
-- OCI Python SDK
-- Git
-- GitHub
+* Python
+* Streamlit
+* Pandas
+* NumPy
+* Oracle Cloud Infrastructure (OCI)
+* OCI Generative AI
+* OCI Embeddings
+* Cohere
+* OCI Python SDK
+* Git
+* GitHub
 
 ---
 
@@ -121,6 +148,7 @@ DevopsProg/
 ├── requirements.txt
 ├── .gitignore
 └── README.md
+```
 
 ---
 
@@ -132,10 +160,10 @@ Responsável pela interface da aplicação utilizando Streamlit.
 
 Também controla:
 
-- campo de perguntas;
-- histórico da conversa;
-- exibição das respostas;
-- exibição das fontes.
+* campo de perguntas;
+* histórico da conversa;
+* exibição das respostas;
+* exibição das fontes.
 
 ### ia_service.py
 
@@ -143,12 +171,12 @@ Responsável pela lógica de Inteligência Artificial.
 
 Ele realiza:
 
-- conexão com a Oracle Cloud;
-- geração de embeddings;
-- busca semântica;
-- cálculo de similaridade;
-- envio da pergunta para o modelo de IA;
-- retorno da resposta.
+* conexão com a Oracle Cloud;
+* geração de embeddings;
+* busca semântica;
+* cálculo de similaridade;
+* envio da pergunta para o modelo de IA;
+* retorno da resposta.
 
 ### base_conhecimento.csv
 
@@ -164,8 +192,15 @@ O arquivo:
 
 ```text
 .env
+```
 
+é ignorado através do:
+
+```text
 .gitignore
+```
+
+As credenciais utilizadas para autenticação na Oracle Cloud também são mantidas fora do repositório.
 
 ---
 
@@ -175,6 +210,37 @@ O arquivo:
 
 ```bash
 git clone https://github.com/CarminoM/DevopsProg.git
+```
+
+### 2. Entre na pasta do projeto
+
+```bash
+cd DevopsProg
+```
+
+### 3. Instale as dependências
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+### 4. Configure a autenticação da OCI
+
+É necessário possuir uma conta Oracle Cloud e configurar o arquivo:
+
+```text
+~/.oci/config
+```
+
+com as credenciais necessárias para acessar os serviços utilizados pelo projeto.
+
+### 5. Execute a aplicação
+
+```bash
+python -m streamlit run app.py
+```
+
+A aplicação será aberta no navegador.
 
 ---
 
@@ -184,12 +250,30 @@ git clone https://github.com/CarminoM/DevopsProg.git
 
 ```text
 O que é uma API?
+```
 
+O DevopsProg consulta a base de conhecimento e utiliza o OCI Generative AI para gerar uma explicação didática.
+
+### Pergunta usando significado
+
+```text
 Qual componente fala com o banco de dados?
+```
 
+A busca semântica identifica que o conteúdo mais relacionado é:
+
+```text
 Repository
+```
 
+mesmo que a palavra `Repository` não apareça na pergunta.
+
+### Pergunta fora da base
+
+```text
 Como funciona a fotossíntese?
+```
+
 Nesse caso, o sistema informa que não encontrou informações suficientes na base de conhecimento.
 
 ---
@@ -198,12 +282,12 @@ Nesse caso, o sistema informa que não encontrou informações suficientes na ba
 
 A versão atual possui algumas limitações:
 
-- base de conhecimento ainda pequena;
-- conteúdos armazenados apenas em CSV;
-- não possui autenticação de usuários;
-- não utiliza banco vetorial;
-- ainda não possui deploy publicado em nuvem;
-- a qualidade das respostas depende da qualidade da base de conhecimento.
+* base de conhecimento ainda pequena;
+* conteúdos armazenados apenas em CSV;
+* não possui autenticação de usuários;
+* não utiliza banco vetorial;
+* ainda não possui deploy publicado em nuvem;
+* a qualidade das respostas depende da qualidade da base de conhecimento.
 
 ---
 
@@ -211,14 +295,14 @@ A versão atual possui algumas limitações:
 
 Possíveis evoluções do DevopsProg:
 
-- adicionar documentos em PDF à base de conhecimento;
-- aumentar a quantidade de conteúdos disponíveis;
-- implementar banco vetorial;
-- evoluir para uma arquitetura RAG mais completa;
-- melhorar o histórico da conversa;
-- adicionar avaliação da qualidade das respostas;
-- personalizar melhor a interface;
-- realizar o deploy da aplicação em ambiente cloud.
+* adicionar documentos em PDF à base de conhecimento;
+* aumentar a quantidade de conteúdos disponíveis;
+* implementar banco vetorial;
+* evoluir para uma arquitetura RAG mais completa;
+* melhorar o histórico da conversa;
+* adicionar avaliação da qualidade das respostas;
+* personalizar melhor a interface;
+* realizar o deploy da aplicação em ambiente cloud.
 
 ---
 
@@ -242,6 +326,7 @@ OCI Generative AI
 Resposta didática
    ↓
 Fonte + categoria + tema + similaridade
+```
 
 ---
 
@@ -251,16 +336,16 @@ Versão funcional em ambiente local.
 
 Atualmente o projeto já possui:
 
-- interface web com Streamlit;
-- histórico de conversa;
-- base de conhecimento própria em CSV;
-- busca semântica;
-- integração com Oracle Cloud Infrastructure;
-- uso de embeddings;
-- respostas geradas por Inteligência Artificial;
-- identificação da fonte utilizada;
-- exibição da similaridade da busca;
-- tratamento de perguntas fora do escopo.
+* interface web com Streamlit;
+* histórico de conversa;
+* base de conhecimento própria em CSV;
+* busca semântica;
+* integração com Oracle Cloud Infrastructure;
+* uso de embeddings;
+* respostas geradas por Inteligência Artificial;
+* identificação da fonte utilizada;
+* exibição da similaridade da busca;
+* tratamento de perguntas fora do escopo.
 
 ---
 
