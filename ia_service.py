@@ -7,22 +7,57 @@ import numpy as np
 # CONFIGURAÇÃO OCI
 # --------------------------------------------------
 
-config = oci.config.from_file()
+import os
+import streamlit as st
+
+try:
+    oci_secrets = st.secrets["oci"]
+
+    config = {
+        "user": oci_secrets["user"],
+        "fingerprint": oci_secrets["fingerprint"],
+        "tenancy": oci_secrets["tenancy"],
+        "region": oci_secrets["region"],
+        "key_content": oci_secrets["key_content"],
+    }
+
+    signer = oci.signer.Signer(
+        tenancy=config["tenancy"],
+        user=config["user"],
+        fingerprint=config["fingerprint"],
+        private_key_content=config["key_content"],
+    )
+
+except Exception:
+    config = oci.config.from_file()
+    signer = None
 
 endpoint = (
     "https://inference.generativeai."
     "sa-saopaulo-1.oci.oraclecloud.com"
 )
 
-cliente_ia = (
-    oci.generative_ai_inference
-    .GenerativeAiInferenceClient(
-        config=config,
-        service_endpoint=endpoint,
-        retry_strategy=oci.retry.NoneRetryStrategy(),
-        timeout=(10, 240)
+if signer:
+    cliente_ia = (
+        oci.generative_ai_inference
+        .GenerativeAiInferenceClient(
+            config={},
+            signer=signer,
+            service_endpoint=endpoint,
+            retry_strategy=oci.retry.NoneRetryStrategy(),
+            timeout=(10, 240)
+        )
     )
-)
+else:
+    cliente_ia = (
+        oci.generative_ai_inference
+        .GenerativeAiInferenceClient(
+            config=config,
+            service_endpoint=endpoint,
+            retry_strategy=oci.retry.NoneRetryStrategy(),
+            timeout=(10, 240)
+        )
+    )
 
 
 # --------------------------------------------------
