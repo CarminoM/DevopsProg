@@ -42,7 +42,7 @@ if signer:
     cliente_ia = (
         oci.generative_ai_inference
         .GenerativeAiInferenceClient(
-            config={},
+            config={"region": config["region"]},
             signer=signer,
             service_endpoint=endpoint,
             retry_strategy=oci.retry.NoneRetryStrategy(),
