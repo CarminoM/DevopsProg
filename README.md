@@ -286,7 +286,6 @@ A versão atual possui algumas limitações:
 * conteúdos armazenados apenas em CSV;
 * não possui autenticação de usuários;
 * não utiliza banco vetorial;
-* ainda não possui deploy publicado em nuvem;
 * a qualidade das respostas depende da qualidade da base de conhecimento.
 
 ---
@@ -302,7 +301,6 @@ Possíveis evoluções do DevopsProg:
 * melhorar o histórico da conversa;
 * adicionar avaliação da qualidade das respostas;
 * personalizar melhor a interface;
-* realizar o deploy da aplicação em ambiente cloud.
 
 ---
 
@@ -326,13 +324,31 @@ OCI Generative AI
 Resposta didática
    ↓
 Fonte + categoria + tema + similaridade
+
 ```
+---
+
+## Deploy
+
+A aplicação está publicada no **Streamlit Community Cloud** e integrada aos serviços de Inteligência Artificial da Oracle Cloud Infrastructure.
+
+O deploy utiliza:
+
+- código-fonte hospedado no GitHub;
+- Streamlit Community Cloud para execução da aplicação;
+- Secrets do Streamlit para armazenamento seguro das credenciais;
+- OCI Generative AI para geração das respostas;
+- OCI Embeddings para busca semântica.
+
+### Aplicação online
+
+https://carminom-devopsprog-app-yoyqhw.streamlit.app/
 
 ---
 
 ## Status do projeto
 
-Versão funcional em ambiente local.
+Versão funcional publicada em ambiente cloud.
 
 Atualmente o projeto já possui:
 
@@ -346,6 +362,40 @@ Atualmente o projeto já possui:
 * identificação da fonte utilizada;
 * exibição da similaridade da busca;
 * tratamento de perguntas fora do escopo.
+* deploy realizado no Streamlit Community Cloud;
+* aplicação disponível por link público;
+
+---
+
+---
+
+## Evidências do projeto
+
+O projeto foi validado com diferentes tipos de perguntas.
+
+### Busca semântica
+
+Pergunta:
+
+```text
+Qual componente fala com o banco de dados?
+
+Resultado identificado pela busca:
+Repository
+
+Pergunta fora do escopo
+
+Pergunta:
+
+Como funciona a fotossíntese?
+
+Resultado:
+
+O DevopsProg informa que não encontrou informações suficientes na base de conhecimento.
+
+Integração com IA
+
+As respostas são geradas pelo OCI Generative AI utilizando como contexto o conteúdo recuperado da base de conhecimento.
 
 ---
 
