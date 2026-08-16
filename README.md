@@ -361,11 +361,9 @@ Atualmente o projeto já possui:
 * respostas geradas por Inteligência Artificial;
 * identificação da fonte utilizada;
 * exibição da similaridade da busca;
-* tratamento de perguntas fora do escopo.
+* tratamento de perguntas fora do escopo;
 * deploy realizado no Streamlit Community Cloud;
-* aplicação disponível por link público;
-
----
+* aplicação disponível por link público.
 
 ---
 
@@ -379,23 +377,33 @@ Pergunta:
 
 ```text
 Qual componente fala com o banco de dados?
+```
 
 Resultado identificado pela busca:
-Repository
 
-Pergunta fora do escopo
+```text
+Repository
+```
+
+Esse teste demonstra que o agente consegue identificar o conteúdo semanticamente relacionado mesmo quando a palavra `Repository` não aparece na pergunta.
+
+### Pergunta fora do escopo
 
 Pergunta:
 
+```text
 Como funciona a fotossíntese?
+```
 
 Resultado:
 
 O DevopsProg informa que não encontrou informações suficientes na base de conhecimento.
 
-Integração com IA
+Esse comportamento evita que o agente responda livremente sobre assuntos que não estão contemplados na base utilizada pelo projeto.
 
-As respostas são geradas pelo OCI Generative AI utilizando como contexto o conteúdo recuperado da base de conhecimento.
+### Integração com IA
+
+As respostas são geradas pelo **OCI Generative AI**, utilizando como contexto o conteúdo recuperado da base de conhecimento através da busca semântica.
 
 ---
 
