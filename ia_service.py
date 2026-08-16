@@ -21,44 +21,25 @@ try:
         "key_content": oci_secrets["key_content"],
     }
 
-    signer = oci.signer.Signer(
-    tenancy=config["tenancy"],
-    user=config["user"],
-    fingerprint=config["fingerprint"],
-    private_key_file_location=None,
-    private_key_content=config["key_content"],
-)
-
 except Exception:
     config = oci.config.from_file()
-    signer = None
+
 
 endpoint = (
     "https://inference.generativeai."
     "sa-saopaulo-1.oci.oraclecloud.com"
 )
 
-if signer:
-    cliente_ia = (
-        oci.generative_ai_inference
-        .GenerativeAiInferenceClient(
-            config={"region": config["region"]},
-            signer=signer,
-            service_endpoint=endpoint,
-            retry_strategy=oci.retry.NoneRetryStrategy(),
-            timeout=(10, 240)
-        )
+
+cliente_ia = (
+    oci.generative_ai_inference
+    .GenerativeAiInferenceClient(
+        config=config,
+        service_endpoint=endpoint,
+        retry_strategy=oci.retry.NoneRetryStrategy(),
+        timeout=(10, 240)
     )
-else:
-    cliente_ia = (
-        oci.generative_ai_inference
-        .GenerativeAiInferenceClient(
-            config=config,
-            service_endpoint=endpoint,
-            retry_strategy=oci.retry.NoneRetryStrategy(),
-            timeout=(10, 240)
-        )
-    )
+)
 
 
 # --------------------------------------------------
