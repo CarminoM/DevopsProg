@@ -22,11 +22,12 @@ try:
     }
 
     signer = oci.signer.Signer(
-        tenancy=config["tenancy"],
-        user=config["user"],
-        fingerprint=config["fingerprint"],
-        private_key_content=config["key_content"],
-    )
+    tenancy=config["tenancy"],
+    user=config["user"],
+    fingerprint=config["fingerprint"],
+    private_key_file_location=None,
+    private_key_content=config["key_content"],
+)
 
 except Exception:
     config = oci.config.from_file()
